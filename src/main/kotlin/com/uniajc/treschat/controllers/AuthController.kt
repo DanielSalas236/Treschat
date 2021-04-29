@@ -29,7 +29,7 @@ import javax.validation.constraints.NotNull
 
 
 @RestController
-@Api(tags = ["User Type API"])
+@Api(tags = ["USER Type API"])
 @RequestMapping("/user")
 @CrossOrigin
 @Validated
