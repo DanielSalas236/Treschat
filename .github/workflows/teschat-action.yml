@@ -35,15 +35,25 @@ jobs:
           ls
 
       - name: Upload artifact
-        uses: zoispag/action-s3-upload-artifact@v1
-        id: s3
+        uses: zdurham/s3-upload-github-action@master
         with:
-          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          bucket: ${{ secrets.S3_BUCKET }}
-#          bucket_root: /
-          key: my-app-1.0.0
-          path: treschat.zip
+          args: --acl public-read
+        env:
+          FILE: treschat.zip
+          AWS_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          S3_KEY: 'my-app-1.0.0'
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        uses: zoispag/action-s3-upload-artifact@v1
+#        id: s3
+#        with:
+#          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          bucket: ${{ secrets.S3_BUCKET }}
+##          bucket_root: /
+#          key: my-app-1.0.0
+#          path: treschat.zip
 
 #      - name: Output path
 #        run: echo ${{ steps.s3.outputs.object_path }}
