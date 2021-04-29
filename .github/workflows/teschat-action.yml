@@ -5,7 +5,7 @@ name: deploy-staging
 # Controls when the action will run. Triggers the workflow on push or pull request
 on:
   push:
-    branches: [ development ]
+    branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -28,11 +28,6 @@ jobs:
         run: |
           sudo chmod +x gradlew
           sudo ./gradlew build
-          sudo apt-get update
-          sudo apt-get install -y zip
-          zip -j treschat.zip build/libs/treschat-0.0.1-SNAPSHOT.jar appspec.yml scripts/install_app.sh
-          pwd
-          ls
 
 #       - name: Upload artifact
 #         run: |
@@ -65,19 +60,14 @@ jobs:
 #          key: my-app-1.0.0
 #          path: ./treschat.zip
 
-#      - name: Output path
-#        run: echo ${{ steps.s3.outputs.object_path }}
       - name: Deployment Folder
         run: |
-          pwd
-          ls
-          ls build/libs/
           mkdir deployment
           sudo mv build/libs/treschat-0.0.1-SNAPSHOT.jar deployment/
           sudo cp appspec.yml deployment/
           sudo cp scripts/install_app.sh deployment/
           
-      - name: AWS CodeDeploy
+      - name: AWS Upload to S3 and Deploy with CodeDeploy
         uses: sourcetoad/aws-codedeploy-action@v1
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
