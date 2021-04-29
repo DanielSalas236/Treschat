@@ -30,7 +30,7 @@ jobs:
           sudo ./gradlew build
           sudo apt-get update
           sudo apt-get install -y zip
-          zip -j ../../treschat.zip build/libs/treschat-0.0.1-SNAPSHOT.jar appspec.yml scripts/install_app.sh
+          zip -j treschat.zip build/libs/treschat-0.0.1-SNAPSHOT.jar appspec.yml scripts/install_app.sh
 
       - name: Upload artifact
         uses: zoispag/action-s3-upload-artifact@v1
