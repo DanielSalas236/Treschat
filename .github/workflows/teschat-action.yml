@@ -35,13 +35,14 @@ jobs:
           ls
 
       - name: Upload artifact
-        uses: ochanje210/s3-upload-action@master
+        uses: medlypharmacy/s3-artifacts-action@master
         with:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
-          SOURCE_DIR: 'treschat.zip'
-          DEST_DIR: '.'
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_s3_bucket_name: ${{ secrets.S3_BUCKET }}
+          source_path: 'treschat.zip'
+          exclude_repo_from_destination_path: true
+
 #        uses: zoispag/action-s3-upload-artifact@v1
 #        id: s3
 #        with:
