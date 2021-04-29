@@ -64,4 +64,4 @@ jobs:
           codedeploy_name: ${{ secrets.APPLICATION_NAME }}
           codedeploy_group: ${{ secrets.DEPLOYMENT_GROUP }}
           s3_bucket: ${{ secrets.S3_BUCKET }}
-#          s3_folder: /
+          s3_folder: /development
