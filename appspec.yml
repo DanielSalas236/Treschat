@@ -1,0 +1,9 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/Seminario/codedeploy
+hooks:
+  ApplicationStart:
+    - location: ./install_app.sh
+      timeout: 300
