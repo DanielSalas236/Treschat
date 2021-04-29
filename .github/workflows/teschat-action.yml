@@ -43,7 +43,7 @@ jobs:
           bucket: ${{ secrets.S3_BUCKET }}
           bucket_root: /
           key: my-app-1.0.0
-          path: tresox.zip
+          path: /home/runner/work/Treschat/Treschat/tresox.zip
 
       - name: Output path
         run: echo ${{ steps.s3.outputs.object_path }}
