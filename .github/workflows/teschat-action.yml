@@ -26,10 +26,10 @@ jobs:
 
       - name: Generate artifact
         run: |
-          chmod +x gradlew
+          sudo chmod +x gradlew
           ./gradlew build
-          apt-get update
-          apt-get install -y zip
+          sudo apt-get update
+          sudo apt-get install -y zip
           zip -j ../../treschat.zip build/libs/treschat-0.0.1-SNAPSHOT.jar appspec.yml scripts/install_app.sh
 
       - name: Upload artifact
