@@ -36,14 +36,9 @@ jobs:
 
       - name: Upload artifact
         run: |
-          sudo chmod +x gradlew
-          sudo ./gradlew build
-          sudo apt-get update
-          sudo apt-get install -y zip
-          zip -j treschat.zip build/libs/treschat-0.0.1-SNAPSHOT.jar appspec.yml scripts/install_app.sh
           pwd
           ls
-        uses: zoispag/action-s3-upload-artifact@v1
+#        uses: zoispag/action-s3-upload-artifact@v1
         id: s3
         with:
           access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
