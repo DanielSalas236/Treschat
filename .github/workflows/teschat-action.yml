@@ -41,7 +41,7 @@ jobs:
           access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           bucket: ${{ secrets.S3_BUCKET }}
-#          bucket_root: /
+          bucket_root: /
           key: my-app-1.0.0
           path: treschat.zip
 
