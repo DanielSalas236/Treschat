@@ -50,7 +50,7 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          codedeploy_name: ${{ APPLICATION_NAME }}
-          codedeploy_group: ${{ DEPLOYMENT_GROUP }}
+          codedeploy_name: ${{ secrets.APPLICATION_NAME }}
+          codedeploy_group: ${{ secrets.DEPLOYMENT_GROUP }}
           s3_bucket: ${{ secrets.S3_BUCKET }}
           s3_folder: /
