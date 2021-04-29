@@ -34,8 +34,8 @@ jobs:
           pwd
           ls
 
-      - uses: shallwefootball/s3-upload-action@master
       - name: Upload artifact
+        uses: shallwefootball/s3-upload-action@master
         id: S3
         with:
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
