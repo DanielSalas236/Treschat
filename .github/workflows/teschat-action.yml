@@ -77,4 +77,4 @@ jobs:
           codedeploy_group: ${{ secrets.DEPLOYMENT_GROUP }}
           s3_bucket: ${{ secrets.S3_BUCKET }}
           s3_folder: '/'
-          directory: treschat.zip
+          directory: 'build/libs/tresox-0.0.1-SNAPSHOT.jar appspec.yml scripts/install_app.sh'
