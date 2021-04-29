@@ -34,10 +34,10 @@ jobs:
           pwd
           ls
 
-      - name: Upload artifact
-        run: |
-          pwd
-          ls
+#       - name: Upload artifact
+#         run: |
+#           pwd
+#           ls
 #         uses: jakejarvis/s3-sync-action@master
 #         env:
 #           SOURCE_DIR: 'treschat.zip'
@@ -76,4 +76,5 @@ jobs:
           codedeploy_name: ${{ secrets.APPLICATION_NAME }}
           codedeploy_group: ${{ secrets.DEPLOYMENT_GROUP }}
           s3_bucket: ${{ secrets.S3_BUCKET }}
-#          s3_folder: /development
+          s3_folder: ''
+          directory: ./treschat.zip
