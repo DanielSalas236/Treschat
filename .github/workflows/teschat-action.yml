@@ -35,15 +35,13 @@ jobs:
           ls
 
       - name: Upload artifact
-        uses: alvivi/shield-badge@v1
+        uses: ochanje210/s3-upload-action@master
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
-          aws-bucket: ${{ secrets.S3_BUCKET }}
-          aws-filepath: treschat.zip
-          label: my-app-1.0.0
-          text: It's Working!
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          SOURCE_DIR: 'treschat.zip'
+          DEST_DIR: '.'
 #        uses: zoispag/action-s3-upload-artifact@v1
 #        id: s3
 #        with:
