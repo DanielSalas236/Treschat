@@ -40,7 +40,7 @@ jobs:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_s3_bucket_name: ${{ secrets.S3_BUCKET }}
-          source_path: 'treschat.zip'
+          source_path: './treschat.zip'
           exclude_repo_from_destination_path: true
 
 #        uses: zoispag/action-s3-upload-artifact@v1
