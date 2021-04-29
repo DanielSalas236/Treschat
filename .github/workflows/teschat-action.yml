@@ -35,7 +35,7 @@ jobs:
           ls
 
       - name: Upload artifact
-        uses: jakejarvis/s3-sync-action@v0.3.1
+        uses: jakejarvis/s3-sync-action@master
         env:
           SOURCE_DIR: 'treschat.zip'
           AWS_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
