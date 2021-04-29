@@ -24,31 +24,57 @@ jobs:
         with:
           java-version: 11
 
-      - name: Upload artifact
+      - name: Generate artifact
         run: |
-          chmod +x gradlew
-          ./gradlew build
-          apt-get update
-          apt-get install -y zip
-          zip -j treschat.zip build/libs/treschat-0.0.1-SNAPSHOT.jar appspec.yml scripts/install_app.sh
-        uses: zoispag/action-s3-upload-artifact@v1
-        id: s3
-        with:
-          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          bucket: ${{ secrets.S3_BUCKET }}
-          bucket_root: /
-          key: my-app-1.0.0
-          path: tresox.zip
+          sudo chmod +x gradlew
+          sudo ./gradlew build
 
-      - name: Output path
-        run: echo ${{ steps.s3.outputs.object_path }}
-      - name: AWS CodeDeploy
+#       - name: Upload artifact
+#         run: |
+#           pwd
+#           ls
+#         uses: jakejarvis/s3-sync-action@master
+#         env:
+#           SOURCE_DIR: 'treschat.zip'
+#           AWS_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+#           AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+#        uses: medlypharmacy/s3-artifacts-action@master
+#        with:
+#          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws_s3_bucket_name: ${{ secrets.S3_BUCKET }}
+#          source_path: './treschat.zip'
+#          exclude_repo_from_destination_path: true
+#          resource_type: "FILE"
+
+#        uses: zoispag/action-s3-upload-artifact@v1
+#        id: s3
+#        with:
+#          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          bucket: ${{ secrets.S3_BUCKET }}
+#          bucket_root: ''
+#          key: my-app-1.0.0
+#          path: ./treschat.zip
+
+      - name: Deployment Folder
+        run: |
+          mkdir deployment
+          sudo mv build/libs/treschat-0.0.1-SNAPSHOT.jar deployment/
+          sudo cp appspec.yml deployment/
+          sudo cp scripts/install_app.sh deployment/
+          
+      - name: AWS Upload to S3 and Deploy with CodeDeploy
         uses: sourcetoad/aws-codedeploy-action@v1
         with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          codedeploy_name: ${{ APPLICATION_NAME }}
-          codedeploy_group: ${{ DEPLOYMENT_GROUP }}
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_DEFAULT_REGION }}
+          codedeploy_name: ${{ secrets.APPLICATION_NAME }}
+          codedeploy_group: ${{ secrets.DEPLOYMENT_GROUP }}
           s3_bucket: ${{ secrets.S3_BUCKET }}
-          s3_folder: /
+          s3_folder: '/'
+          directory: ./deployment/
