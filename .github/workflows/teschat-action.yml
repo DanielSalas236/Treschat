@@ -69,6 +69,9 @@ jobs:
 #        run: echo ${{ steps.s3.outputs.object_path }}
       - name: Deployment Folder
         run: |
+          pwd
+          ls
+          ls build/libs/
           mkdir deployment
           mv build/libs/tresox-0.0.1-SNAPSHOT.jar deployment/
           cp appspec.yml deployment/
