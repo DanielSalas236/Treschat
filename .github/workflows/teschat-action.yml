@@ -73,9 +73,9 @@ jobs:
           ls
           ls build/libs/
           mkdir deployment
-          mv build/libs/tresox-0.0.1-SNAPSHOT.jar deployment/
-          cp appspec.yml deployment/
-          cp scripts/install_app.sh deployment/
+          mv /build/libs/tresox-0.0.1-SNAPSHOT.jar /deployment/
+          cp appspec.yml /deployment/
+          cp /scripts/install_app.sh /deployment/
           
       - name: AWS CodeDeploy
         uses: sourcetoad/aws-codedeploy-action@v1
