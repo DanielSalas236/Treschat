@@ -35,26 +35,23 @@ jobs:
           ls
 
       - name: Upload artifact
-        run: |
-          pwd
-          ls
-#        uses: zoispag/action-s3-upload-artifact@v1
-#        id: s3
-#        with:
-#          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          bucket: ${{ secrets.S3_BUCKET }}
-#          bucket_root: /
-#          key: my-app-1.0.0
-#          path: /home/runner/work/Treschat/Treschat/tresox.zip
+        uses: zoispag/action-s3-upload-artifact@v1
+        id: s3
+        with:
+          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          bucket: ${{ secrets.S3_BUCKET }}
+          bucket_root: /
+          key: my-app-1.0.0
+          path: treschat.zip
 
-      - name: Output path
-        run: echo ${{ steps.s3.outputs.object_path }}
+#      - name: Output path
+#        run: echo ${{ steps.s3.outputs.object_path }}
       - name: AWS CodeDeploy
         uses: sourcetoad/aws-codedeploy-action@v1
         with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           codedeploy_name: ${{ secrets.APPLICATION_NAME }}
           codedeploy_group: ${{ secrets.DEPLOYMENT_GROUP }}
           s3_bucket: ${{ secrets.S3_BUCKET }}
