@@ -35,23 +35,24 @@ jobs:
           ls
 
       - name: Upload artifact
-        uses: medlypharmacy/s3-artifacts-action@master
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_s3_bucket_name: ${{ secrets.S3_BUCKET }}
-          source_path: './treschat.zip'
-          exclude_repo_from_destination_path: true
-
-#        uses: zoispag/action-s3-upload-artifact@v1
-#        id: s3
+#        uses: medlypharmacy/s3-artifacts-action@master
 #        with:
-#          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          bucket: ${{ secrets.S3_BUCKET }}
-#          bucket_root: /
-#          key: my-app-1.0.0
-#          path: treschat.zip
+#          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws_s3_bucket_name: ${{ secrets.S3_BUCKET }}
+#          source_path: './treschat.zip'
+#          exclude_repo_from_destination_path: true
+#          resource_type: "FILE"
+
+        uses: zoispag/action-s3-upload-artifact@v1
+        id: s3
+        with:
+          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          bucket: ${{ secrets.S3_BUCKET }}
+          bucket_root: .
+          key: my-app-1.0.0
+          path: ./treschat.zip
 
 #      - name: Output path
 #        run: echo ${{ steps.s3.outputs.object_path }}
@@ -64,4 +65,4 @@ jobs:
           codedeploy_name: ${{ secrets.APPLICATION_NAME }}
           codedeploy_group: ${{ secrets.DEPLOYMENT_GROUP }}
           s3_bucket: ${{ secrets.S3_BUCKET }}
-          s3_folder: /development
+#          s3_folder: /development
