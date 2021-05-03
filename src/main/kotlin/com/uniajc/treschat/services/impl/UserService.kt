@@ -18,7 +18,7 @@ import java.util.*
 class UserService @Autowired constructor(userRepository: UserRepository) : UserDetailsService {
     private val userRepository: UserRepository
 
-//    @Autowired
+    @Autowired
     private val bcryptEncoder: PasswordEncoder? = null
     fun update(user: User): User {
         return userRepository.save(user)
@@ -33,7 +33,7 @@ class UserService @Autowired constructor(userRepository: UserRepository) : UserD
     }
 
     override fun loadUserByUsername(email: String): UserDetails {
-        val user: User = userRepository.findByEmail(email)
+        val user: User? = userRepository.findByEmail(email)
         if(user == null)
             throw UsernameNotFoundException("Usuario no encontrado con el correo: $email")
         return org.springframework.security.core.userdetails.User(user.email, user.password, ArrayList<GrantedAuthority>())
@@ -41,7 +41,7 @@ class UserService @Autowired constructor(userRepository: UserRepository) : UserD
 
     fun save(user: UserDTO): User? {
         return if (userRepository.findByEmail(user.email) == null) {
-            val newUser = User()
+            var newUser = User()
             newUser.email = user.email
             try {
                 newUser.password = bcryptEncoder!!.encode(user.password)

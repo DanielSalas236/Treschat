@@ -13,18 +13,22 @@ class User : Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "us_id")
+    @JvmField
     var id: Long = 0
 
     @Column(name = "us_name")
     @NotBlank(message = "El campo us_name no debe ser nulo")
+    @JvmField
     var name: String = ""
 
     @Column(name = "us_email")
     @NotBlank(message = "El campo us_email no debe ser nulo")
+    @JvmField
     var email: String = ""
 
     @Column(name = "us_password")
     @NotBlank(message = "El campo us_password no debe ser nulo")
+    @JvmField
     var password: String = ""
 
     companion object {

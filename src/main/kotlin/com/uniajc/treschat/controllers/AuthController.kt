@@ -29,7 +29,7 @@ import javax.validation.constraints.NotNull
 
 
 @RestController
-@Api(tags = ["USER Type API"])
+@Api(tags = ["User Type API"])
 @RequestMapping("/user")
 @CrossOrigin
 @Validated
@@ -70,9 +70,6 @@ class AuthController @Autowired constructor(userService: UserService) {
         ), ApiResponse(code = 500, message = "Error con la conexión a la base de datos", response = User::class)]
     )
     @PostMapping(value = ["/authenticate"], produces = ["application/json;charset=UTF-8"])
-    @Throws(
-        Exception::class
-    )
     fun createAuthenticationToken(@RequestBody authenticationRequest: JwtRequest): ResponseEntity<SimpleObjectResponse> {
         return try {
             authenticate(authenticationRequest.username, authenticationRequest.password)
@@ -114,7 +111,7 @@ class AuthController @Autowired constructor(userService: UserService) {
         return try {
             val res = userService.save(user)
             if (res != null) {
-                ResponseEntity(
+                ResponseEntity<SimpleObjectResponse>(
                     SimpleObjectResponse.Builder().code(HttpStatus.OK.value()).message("Usuario registrado con éxito")
                         .value(user).build(),
                     HttpStatus.OK
@@ -243,8 +240,7 @@ class AuthController @Autowired constructor(userService: UserService) {
         )
     }
 
-    @Throws(Exception::class)
-    private fun authenticate(username: String, password: String) {
+    fun authenticate(username: String, password: String) {
         try {
             authenticationManager!!.authenticate(UsernamePasswordAuthenticationToken(username, password))
         } catch (e: DisabledException) {
