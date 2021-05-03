@@ -1,10 +1,5 @@
 package com.uniajc.treschat.models.dto
 
-import lombok.AllArgsConstructor
-import lombok.Builder
-
-@AllArgsConstructor
-@Builder
 class SimpleObjectResponse(
     val code: Int = 0,
     val message: String = "",
