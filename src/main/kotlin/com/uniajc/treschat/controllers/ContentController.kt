@@ -16,6 +16,14 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.lang.Exception
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean
+import org.springframework.core.Ordered
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.web.filter.CorsFilter
+import javax.servlet.Filter
+import java.util.*
+
 
 @RestController
 @Api(tags = ["Content Type API"])
@@ -156,4 +164,20 @@ class ContentController internal constructor(contentService: ContentService) {
     init {
         this.contentService = contentService
     }
+
+    @Bean
+    fun simpleCorsFilter(): FilterRegistrationBean<*> {
+        val source = UrlBasedCorsConfigurationSource()
+        val config = CorsConfiguration()
+        config.allowCredentials = true
+        // *** URL below needs to match the Vue client URL and port ***
+        config.allowedOrigins = Collections.singletonList("http://vet.tecliz.com")
+        config.allowedMethods = Collections.singletonList("*")
+        config.allowedHeaders = Collections.singletonList("*")
+        source.registerCorsConfiguration("/**", config)
+        val bean = FilterRegistrationBean<Filter>(CorsFilter(source))
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE)
+        return bean
+    }
+
 }
