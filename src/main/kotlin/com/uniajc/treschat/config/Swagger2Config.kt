@@ -32,7 +32,7 @@ class Swagger2Config {
         return ApiInfoBuilder().title("Tresox Rest").description("Proyecto base para los servicios Rest")
             .termsOfServiceUrl("http://tresox.com/").license("MIT License")
             .contact(
-                Contact("Tresox", "http://tresox.com/", "tresox@gmail.com")
+                Contact("Tresox", "http://tresox.com/", "tresox236@gmail.com")
             )
             .version("1.0").build()
     }
